@@ -1,1 +1,6 @@
 fastapi
+pandas
+scikit-learn
+tensorflow
+matplotlib
+uvicorn

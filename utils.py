@@ -2,6 +2,7 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+import tensorflow as tf
 
 
 def preprocess_data(file_path):
@@ -24,3 +25,16 @@ def preprocess_data(file_path):
     X_test = scaler.transform(X_test)
 
     return x_train, X_test, y_train, y_test, scaler
+
+
+def build_model(input_shape):
+    # Create a sequential neural network model
+    model = tf.keras.Sequential([
+        tf.keras.layers.Dense(128, activation='relu', input_shape=(input_shape,)),
+        tf.keras.layers.Dropout(0.2),
+        tf.keras.layers.Dense(64, activation='relu'),
+        tf.keras.layers.Dense(1)
+    ])
+    # ^^^ Output layer for regression
+    model.compile(optimizer='adam', loss='mse', metrics=['mae'])
+    return model
