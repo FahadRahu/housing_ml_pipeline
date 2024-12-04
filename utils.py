@@ -3,6 +3,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 import tensorflow as tf
+import matplotlib.pyplot as plt
 
 
 def preprocess_data(file_path):
@@ -38,3 +39,14 @@ def build_model(input_shape):
     # ^^^ Output layer for regression
     model.compile(optimizer='adam', loss='mse', metrics=['mae'])
     return model
+
+def plot_training_history(history):
+    # Plot training and validation loss
+    plt.figure(figsize=(10, 6))
+    plt.plot(history.history['loss'], label='Training Loss')
+    plt.plot(history.history['val_loss'], label='Validation Loss')
+    plt.xlabel('Epochs')
+    plt.ylabel('Loss')
+    plt.title('Training vs Validation Loss')
+    plt.legend()
+    plt.show()
