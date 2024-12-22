@@ -14,18 +14,18 @@ def preprocess_data(file_path):
     data = pd.get_dummies(data, drop_first=True)
 
     # Separate features (X) and target (y)
-    X = data.drop(columns=['price'])
+    x = data.drop(columns=['price'])
     y = data['price']
 
     # Split into training and test sets
-    x_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 
     # Standardize numerical features
     scaler = StandardScaler()
     x_train = scaler.fit_transform(x_train)
-    X_test = scaler.transform(X_test)
+    x_test = scaler.transform(x_test)
 
-    return x_train, X_test, y_train, y_test, scaler
+    return x_train, x_test, y_train, y_test, scaler
 
 
 def build_model(input_shape):
@@ -39,6 +39,7 @@ def build_model(input_shape):
     # ^^^ Output layer for regression
     model.compile(optimizer='adam', loss='mse', metrics=['mae'])
     return model
+
 
 def plot_training_history(history):
     # Plot training and validation loss
